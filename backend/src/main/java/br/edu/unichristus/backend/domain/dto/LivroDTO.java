@@ -1,10 +1,24 @@
 package br.edu.unichristus.backend.domain.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 public class LivroDTO {
+
+
+    public LivroDTO(Long id, String titulo, String autor, Integer anoPublicacao, String categoria, LocalDate dataAdicionado) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anoPublicacao = anoPublicacao;
+        this.categoria = categoria;
+        this.dataAdicionado = dataAdicionado;
+    }
 
     private Long id;
     private String titulo;
@@ -61,5 +75,4 @@ public class LivroDTO {
         this.dataAdicionado = dataAdicionado;
     }
 }
-{
-}
+

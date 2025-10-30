@@ -56,7 +56,7 @@ public class LivroService {
     }
 
     public LivroDTO update(LivroDTO dto) {
-        if (!repository.existsById(dto.getId())) {
+        if (!repository.existsById(dto.getId().toString())) {
             throw new ApiException(HttpStatus.NOT_FOUND,
                     "unichristus.service.livro.notfound",
                     "O livro com o ID informado não foi encontrado.");
@@ -68,16 +68,16 @@ public class LivroService {
     }
 
     public void deleteLivroById(Long id) {
-        if (!repository.existsById(id)) {
+        if (!repository.existsById(id.toString())) {
             throw new ApiException(HttpStatus.NOT_FOUND,
                     "unichristus.service.livro.notfound",
                     "O livro com o ID informado não foi encontrado.");
         }
-        repository.deleteById(id);
+        repository.deleteById(id.toString());
     }
 
     public LivroLowDTO findLivroById(Long id) {
-        var livro = repository.findById(id).orElseThrow(
+        var livro = repository.findById(id.toString()).orElseThrow(
                 () -> new ApiException(HttpStatus.NOT_FOUND,
                         "unichristus.service.livro.notfound",
                         "O livro com o ID informado não foi encontrado.")
