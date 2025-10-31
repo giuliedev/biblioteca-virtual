@@ -20,6 +20,9 @@ public class LivroDTO {
         this.dataAdicionado = dataAdicionado;
     }
 
+    public LivroDTO() {
+    }
+
     private Long id;
     private String titulo;
     private String autor;

@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Documentação API - TEPW 2025.2",
+				title = "Documentação",
 				version = "1.0",
 				description = "Trata-se da Documentação da " +
 						"API construída em sala",
