@@ -1,10 +1,9 @@
 package br.edu.unichristus.backend.controller;
 
 import br.edu.unichristus.backend.domain.dto.ErrorDTO;
-import br.edu.unichristus.backend.domain.dto.UserDTO;
-import br.edu.unichristus.backend.domain.dto.UserLowDTO;
-import br.edu.unichristus.backend.domain.model.User;
-import br.edu.unichristus.backend.service.UserService;
+import br.edu.unichristus.backend.domain.dto.UsuarioDTO;
+import br.edu.unichristus.backend.domain.dto.UsuarioLowDTO;
+import br.edu.unichristus.backend.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,10 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
-public class UserController {
+public class UsuarioController {
 
     @Autowired
-    private UserService service;
+    private UsuarioService service;
 
     @Operation(summary = "Cadastra dados referentes ao usuário",
                    tags = "User")
@@ -29,17 +28,17 @@ public class UserController {
             "\n- O login informado já existe" +
             "\n- O nome do usuário excede o limite de 100 caracteres.")
     @PostMapping
-    public UserDTO create(@RequestBody UserDTO user){
+    public UsuarioDTO create(@RequestBody UsuarioDTO user){
         return service.create(user);
     }
 
     @GetMapping("/all")
-    public List<UserLowDTO> getAll(){
+    public List<UsuarioLowDTO> getAll(){
         return service.getAll();
     }
 
     @PutMapping
-    public UserDTO update(@RequestBody UserDTO user){
+    public UsuarioDTO update(@RequestBody UsuarioDTO user){
         return service.update(user);
     }
 
@@ -62,7 +61,7 @@ public class UserController {
             ))
     })
     @GetMapping("/{id}")
-    public UserLowDTO findById(@PathVariable(name = "id") Long id){
+    public UsuarioLowDTO findById(@PathVariable(name = "id") Long id){
        return service.findUserById(id);
     }
 
