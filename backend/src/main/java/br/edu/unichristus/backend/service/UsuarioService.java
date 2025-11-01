@@ -1,5 +1,6 @@
 package br.edu.unichristus.backend.service;
 
+import br.edu.unichristus.backend.domain.dto.AutorDTO;
 import br.edu.unichristus.backend.domain.dto.UsuarioDTO;
 import br.edu.unichristus.backend.domain.dto.UsuarioLowDTO;
 import br.edu.unichristus.backend.domain.model.Usuario;
@@ -17,6 +18,23 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository repository;
+
+    public UsuarioDTO create(UsuarioDTO dto){
+        if(dto.getName().isBlank()){
+            throw new ApiException(HttpStatus.BAD_REQUEST,
+                    "unichristus.service.usuario.badrequest",
+                    "O nome do usuario é obrigatório.");
+        }
+        if(dto.getName().length() > 100){
+            throw new ApiException(HttpStatus.BAD_REQUEST,
+                    "unichristus.service.autor.badrequest",
+                    "O limite de caracteres do nome do usuario é 100");
+        }
+        var usuario = MapperUtil.parseObject(dto, Usuario.class);
+        var usuarioPersist = repository.save(usuario);
+
+        return MapperUtil.parseObject(usuarioPersist, UsuarioDTO.class);
+    }
 
     public List<UsuarioLowDTO> getAll(){
 

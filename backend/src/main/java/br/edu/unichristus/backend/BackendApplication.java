@@ -9,14 +9,15 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Documentação",
+				title = "Documentação da Biblioteca Virtual ",
 				version = "1.0",
-				description = "Trata-se da Documentação da " +
-						"API construída em sala",
+				description = "API - NP2 da Disciplina TEPW-20252 " +
+                         "Contato: giuliedev@gmail.com; margoprr@gmail.com; pollyammelo@gmail.com",
+
 				contact = @Contact(
-						name = "Adriano Lima",
-						email = "adriano.candido@unichristus.edu.br",
-						url = "https://unichristus.edu.br")
+						name = "Equipe: Giulie Ribeiro; Margarida Pereira; Pollyanna Melo",
+						email = "giuliedev@gmail.com",
+						url = "https://github.com/giuliedev/biblioteca-virtual")
 		)
 )
 @SpringBootApplication

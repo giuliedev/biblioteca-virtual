@@ -32,6 +32,9 @@ public class UsuarioController {
         return service.create(user);
     }
 
+    @Operation(summary = "Cadastra dados referentes ao usuário",
+            tags = "User")
+    @ApiResponse(responseCode = "200", description = "Usuário cadastrado com sucesso!")
     @GetMapping("/all")
     public List<UsuarioLowDTO> getAll(){
         return service.getAll();

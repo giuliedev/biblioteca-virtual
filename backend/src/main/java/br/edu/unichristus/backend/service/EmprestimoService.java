@@ -17,7 +17,7 @@ public class EmprestimoService {
     private EmprestimoRepository repository;
 
     public EmprestimoDTO create(EmprestimoDTO dto) {
-        var emprestimo = MapperUtil.parseListObjects(dto, Emprestimo.class);
+        var emprestimo = MapperUtil.parseObject(dto, Emprestimo.class);
         var emprestimoPersist = repository.save(emprestimo);
         return MapperUtil.parseObject(emprestimoPersist, EmprestimoDTO.class);
     }
