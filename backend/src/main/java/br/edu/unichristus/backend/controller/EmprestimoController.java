@@ -23,24 +23,34 @@ public class EmprestimoController {
     @ApiResponse(responseCode = "200", description = "Empréstimo cadastrado com sucesso!")
     @ApiResponse(responseCode = "400", description = "Possíveis causas: dados obrigatórios não preenchidos.")
     @PostMapping
-
     public EmprestimoDTO create(@RequestBody EmprestimoDTO dto){
         return service.create(dto);
     }
 
+    @Operation(summary = "Retorna todos os empréstimos cadastrados", tags = "Emprestimo")
+    @ApiResponse(responseCode = "200", description = "Listagem de empréstimos retornada com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel retorna a listagem de empréstimos.")
     @GetMapping("/all")
     public List<EmprestimoLowDTO> getAll(){
         return service.getAll();
     }
+
+    @Operation(summary = "Atualiza os dados de empréstimo cadastrado", tags = "Emprestimo")
+    @ApiResponse(responseCode = "200", description = "Empréstimo atualizado com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel atualizar o empréstimo cadastrado.")
     @PutMapping
     public EmprestimoDTO update(@RequestBody EmprestimoDTO dto){
         return service.update(dto);
     }
 
+    @Operation(summary = "Exclui um emprestimo com base no ID informado", tags = "Emprestimo")
+    @ApiResponse(responseCode = "200", description = "Empréstimo deletado com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel excluir o empréstimo cadastrado.")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(name = "id")Long id){
         service.deleteById(id);
     }
+
     @Operation(summary = "Retorna os dados de um empréstimo baseado no ID", tags = "Emprestimo")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Retorno dos dados do empréstimo"),

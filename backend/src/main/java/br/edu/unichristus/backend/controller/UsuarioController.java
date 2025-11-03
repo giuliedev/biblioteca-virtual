@@ -32,19 +32,28 @@ public class UsuarioController {
         return service.create(user);
     }
 
-    @Operation(summary = "Cadastra dados referentes ao usuário",
+    @Operation(summary = "Retorna todos os usuários cadastrados",
             tags = "User")
-    @ApiResponse(responseCode = "200", description = "Usuário cadastrado com sucesso!")
+    @ApiResponse(responseCode = "200", description = "Listagem de usuários retornada com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Nenhum dado encontrado, não foi possivel retorna nenhum usuário!")
     @GetMapping("/all")
     public List<UsuarioLowDTO> getAll(){
         return service.getAll();
     }
 
+    @Operation(summary = "Atualiza os dados cadastrado do usuário",
+            tags = "User")
+    @ApiResponse(responseCode = "200", description = "Dados do usuário atualizados com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel atualizar os dados do usuário!")
     @PutMapping
     public UsuarioDTO update(@RequestBody UsuarioDTO user){
         return service.update(user);
     }
 
+    @Operation(summary = "Exclui um usuário com base no ID informado",
+            tags = "User")
+    @ApiResponse(responseCode = "200", description ="Usuário deletado com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel deletar o usuário informado!")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(name = "id") Long id){
         service.deleteUserById(id);

@@ -26,22 +26,30 @@ public class AutorController {
     @ApiResponse(responseCode = "200", description = "Autor cadastrado com sucesso!")
     @ApiResponse(responseCode = "400", description = "Possíveis causas:" +
             "\n- O nome do autor excede o limite de 100 caracteres.")
-
     @PostMapping
     public AutorDTO create(@RequestBody AutorDTO autor){
         return service.create(autor);
     }
 
+    @Operation(summary = "Retorna todos os autores cadastrados", tags = "Autor")
+    @ApiResponse(responseCode = "200", description = "Listagem de autores retornada com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel retorna a listagem de autores.")
     @GetMapping("/all")
     public List<AutorLowDTO> getAll(){
         return service.getAll();
     }
 
+    @Operation(summary = "Atualiza os dados do autor cadastrado", tags = "Autor")
+    @ApiResponse(responseCode = "200", description = "Autor atualizado com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel atualizar o autor cadastrado.")
     @PutMapping
     public AutorDTO update(@RequestBody AutorDTO autor){
         return service.update(autor);
     }
 
+    @Operation(summary = "Exclui um autor com base no ID informado", tags = "Autor")
+    @ApiResponse(responseCode = "200", description = "Autor deletado com sucesso!")
+    @ApiResponse(responseCode = "400", description = "Não foi possivel excluir o autor cadastrado.")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(name = "id") Long id){
         service.deleteAutorById(id);

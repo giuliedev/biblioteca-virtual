@@ -21,9 +21,11 @@ public class EmprestimoService {
         var emprestimoPersist = repository.save(emprestimo);
         return MapperUtil.parseObject(emprestimoPersist, EmprestimoDTO.class);
     }
+
     public List<EmprestimoLowDTO> getAll(){
         return MapperUtil.parseListObjects(repository.findAll(), EmprestimoLowDTO.class);
     }
+
     public EmprestimoDTO update(EmprestimoDTO dto){
         var emprestimo = MapperUtil.parseObject(dto,Emprestimo.class);
         var emprestimoPersist = repository.save(emprestimo);
