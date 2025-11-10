@@ -41,6 +41,7 @@ public class UsuarioService {
         var usuario = MapperUtil.parseObject(dto, Usuario.class);
         var usuarioPersist = repository.save(usuario);
 
+        // envia e-mail após salvar o usuário
         enviarEmailBoasVindas(usuarioPersist);
 
         return MapperUtil.parseObject(usuarioPersist, UsuarioDTO.class);
@@ -72,15 +73,25 @@ public class UsuarioService {
     private void enviarEmailBoasVindas(Usuario usuarioPersist) {
         if (usuarioPersist.getEmail() != null && !usuarioPersist.getEmail().isBlank()) {
             try {
-                mailService.enviarEmailTexto(
-                        usuarioPersist.getEmail(),
-                        "Novo usuário cadastrado",
-                        "Olá " + usuarioPersist.getName() + ",\n\nBem-vindo à Biblioteca Virtual! Seu cadastro foi realizado com sucesso."
+                String assunto = "Bem-vindo(a) à Biblioteca Virtual!";
+                String mensagem = String.format(
+                        "Olá %s,\n\nSeja bem-vindo(a) à Biblioteca Virtual!\n\n" +
+                                "Seu cadastro foi realizado com sucesso e agora você pode alugar livros, " +
+                                "acompanhar prazos e explorar nosso acervo digital.\n\n" +
+                                "Atenciosamente,\nEquipe Biblioteca Virtual 📚",
+                        usuarioPersist.getName()
                 );
+
+                mailService.enviarEmail(usuarioPersist.getEmail(), assunto, mensagem);
+                logger.info("E-mail de boas-vindas enviado para {}", usuarioPersist.getEmail());
+
             } catch (Exception e) {
-                logger.warn("Falha ao enviar email de boas-vindas para o usuário {} ({}): {}",
+                logger.warn("Falha ao enviar e-mail de boas-vindas para o usuário {} ({}): {}",
                         usuarioPersist.getName(), usuarioPersist.getEmail(), e.getMessage());
             }
+        } else {
+            logger.warn("Usuário {} não possui e-mail cadastrado, e-mail de boas-vindas não enviado.",
+                    usuarioPersist.getName());
         }
     }
 }

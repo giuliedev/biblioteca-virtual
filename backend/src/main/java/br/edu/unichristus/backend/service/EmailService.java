@@ -9,40 +9,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
+
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     private final JavaMailSender javaMailSender;
 
-    @Value("${spring.mail.from:noreply@biblioteca-virtual.com}")
+    @Value("${spring.mail.username}")
     private String remetente;
 
     public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 
-    public void enviarEmailTexto(String destinatario, String assunto, String mensagem) {
-        if (destinatario == null || destinatario.isBlank()) {
-            logger.warn("Tentativa de enviar email para destinatário vazio ou nulo");
-            throw new IllegalArgumentException("O destinatário do email não pode ser vazio");
-        }
-
-        if (assunto == null || assunto.isBlank()) {
-            logger.warn("Tentativa de enviar email sem assunto");
-            throw new IllegalArgumentException("O assunto do email não pode ser vazio");
-        }
-
+    public void enviarEmail(String destinatario, String assunto, String mensagem) {
         try {
-            logger.info("Enviando email para: {}", destinatario);
-            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setFrom(remetente);
-            simpleMailMessage.setTo(destinatario);
-            simpleMailMessage.setSubject(assunto);
-            simpleMailMessage.setText(mensagem);
-            javaMailSender.send(simpleMailMessage);
-            logger.info("Email enviado com sucesso para: {}", destinatario);
+            SimpleMailMessage email = new SimpleMailMessage();
+            email.setTo(destinatario);
+            email.setSubject(assunto);
+            email.setText(mensagem);
+            email.setFrom(remetente);
+
+            javaMailSender.send(email);
+            logger.info("E-mail enviado com sucesso para {}", destinatario);
         } catch (Exception e) {
-            logger.error("Erro ao enviar email para {}: {}", destinatario, e.getMessage(), e);
-            throw new RuntimeException("Erro ao enviar email: " + e.getMessage(), e);
+            logger.error("Erro ao enviar e-mail para {}: {}", destinatario, e.getMessage(), e);
+            throw new RuntimeException("Erro ao enviar e-mail: " + e.getMessage(), e);
         }
     }
 }
