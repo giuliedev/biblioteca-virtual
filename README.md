@@ -87,7 +87,7 @@ Essa funcionalidade foi desenvolvida utilizando o **JavaMailSender** do Spring F
 Toda a API foi documentada com **Swagger**, permitindo a visualização e o teste das rotas diretamente pelo navegador.  
 
 🔗 Acesse a documentação em:  
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/index.html
 
 ---
 
